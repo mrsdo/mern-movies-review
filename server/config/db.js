@@ -9,12 +9,27 @@
 const mongoose = require('mongoose');
 
 //Create Async function to connect to the database
+/**
+ * TODO: Connection String: Update this connection string
+ *
+ */
+
+mongoose.set('strictQuery', true);
 const connectDB = async () => {
-  const conn = await mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  console.log(`MongoDB Connected: ${conn.connection.host}`)
+  try {
+    // mongodb connection
+    const conn = await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    console.log(`MongoDB Connected: ${conn.connection.host}`)
+  } catch (err) {
+    console.log('MongoDB Connection failed',err);
+    connectDB.json(err);
+    process.exit(1);
+    connectDB.close()
+  }
 };
 
 module.exports = connectDB;

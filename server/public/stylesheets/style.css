@@ -1,0 +1,16 @@
+/*
+ * style.css | MDolce, React Native Portfolio, marti.dolce@29signals.org
+ * Function ---
+ * This file is provides loading capabilities and a splash page while the
+ * page content is loading.
+ * ------------
+ */
+
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}

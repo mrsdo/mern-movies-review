@@ -6,54 +6,63 @@
  */
 
 //Import Packages
-const express = require('express');
-const dotenv = require('dotenv');
-const connectDB = require('./config/db');
-const logger = require('./utils/logger');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const path = require('path');
+var express = require('express');
+var dotenv = require('dotenv');
+var connectDB = require('./config/db');
+var logger = require("morgan");
+var mongoose = require('mongoose');
+var path = require('path');
+var cookieParser = require("cookie-parser");
+var cors = require("cors");
 
 
+//Connect to DB
 dotenv.config({
   path: './config/config.env',
 })
 
-//Connect to DB
-mongoose.set('strictQuery', true);
 connectDB();
 
+/**
+ *
+ * @type {Router | {}}
+ */
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
 
+// APIs
+var moviesRouter = require("./api/movies.route");
 
 //Initialize Express App
-const app = express();
+var app = express();
 
 //Create a port. Read it from env or default
 const PORT = process.env.PORT || 3000;
 
-app.use(logger);
+app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "pages")));
 
-/**
- * Establish /public folder path
- */
-app.use(express.static(path.join(__dirname, 'pages')));
+app.use(cors());
+
 
 /**
  * Create Routes
  */
 
-const indexRouter = require('./routes/index');
-app.use('/', indexRouter);
-app.get("/", (req, res) => {
-  res.json({ message: "This is the express server loaded default with json." });
-});
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+app.use("/api/v1/movies", moviesRouter);
+
 
 //Initialize server to run
-const server = app.listen(PORT,  () => {
+ const server = app.listen(PORT,  () => {
   console.log(`Server running on port ${PORT}`);
 })
+
+
 
 //Create handler for errors
 process.on('unhandledRejection', (err) => {
