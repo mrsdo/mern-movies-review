@@ -12,6 +12,7 @@ const connectDB = require('./config/db');
 const logger = require('./utils/logger');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 
 dotenv.config({
@@ -28,11 +29,26 @@ connectDB();
 const app = express();
 
 //Create a port. Read it from env or default
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3000;
 
 app.use(logger);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(bodyParser);
+/**
+ * Establish /public folder path
+ */
+app.use(express.static(path.join(__dirname, 'pages')));
+
+/**
+ * Create Routes
+ */
+
+const indexRouter = require('./routes/index');
+app.use('/', indexRouter);
+app.get("/", (req, res) => {
+  res.json({ message: "This is the express server loaded default with json." });
+});
 
 //Initialize server to run
 const server = app.listen(PORT,  () => {
