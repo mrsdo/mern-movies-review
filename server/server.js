@@ -1,31 +1,46 @@
+/*
+ * server.js | MDolce, React Native Portfolio, marti.dolce@29signals.org
+ * Function ---
+ * This file is provides central file.
+ * ------------
+ */
+
+//Import Packages
 const express = require('express');
 const dotenv = require('dotenv');
-const morgan = require('morgan');
-const bodyparser = require('body-parser');
-const path = require('path');
+const connectDB = require('./config/db');
+const logger = require('./utils/logger');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-const connectDB = require('./database/connection');
 
-const app = express();
+dotenv.config({
+  path: './config/config.env',
+})
 
-dotenv.config({ path: 'config.env' });
-const PORT = process.env.PORT || 8080;
-
-// log request
-app.use(morgan('tiny'));
-
-// mongodb connection
-
+//Connect to DB
+mongoose.set('strictQuery', true);
 connectDB();
 
-//parse request to body-parser
-app.use(express.json());
-app.use(bodyparser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.json({ message: 'This is the express server loaded default with json.' });
-});
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+//Initialize Express App
+const app = express();
+
+//Create a port. Read it from env or default
+const PORT = process.env.PORT || 5001;
+
+app.use(logger);
+
+app.use(bodyParser);
+
+//Initialize server to run
+const server = app.listen(PORT,  () => {
+  console.log(`Server running on port ${PORT}`);
+})
+
+//Create handler for errors
+process.on('unhandledRejection', (err) => {
+  console.log(`Error: ${err.message}`);
+  server.close(() => process.exit(1));
+})
