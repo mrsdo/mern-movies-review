@@ -38,14 +38,16 @@ A list of packages used for the backend server environment.
 ## Express Server Backend Features
 Map: x = done p = in process r = researching
 
-[x] - MongoDB Connection
-    >-mongodb+srv://dbadmin:<password>@dev-mern-cluster.cy9xgcf.mongodb.net/?retryWrites=true&w=majority
-
-[x] - HTTPS with keys
-
-[x] - Routing and Middleware 01.14.23
+[x] - Backend server (Express)
 
 [x] - Integrating MongoDB
+
+    >> MongoDB Connection
+    >> mongodb+srv://<username>:<password>@dev-mern-cluster.cy9xgcf.mongodb.net/<databasename>retryWrites=true&w=majority
+
+[i] - HTTPS with keys
+
+[i] - Routing and Middleware 01.14.23
 
 [x] - Adding JWT Authentication, Sessions & private routing
 
