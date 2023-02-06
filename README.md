@@ -43,7 +43,7 @@ Map: x = done p = in process r = researching
 [x] - Integrating MongoDB
 
     >> MongoDB Connection
-    >> mongodb+srv://<username>:<password>@dev-mern-cluster.cy9xgcf.mongodb.net/<databasename>retryWrites=true&w=majority
+    >> mongodb+srv://<username>:<password>@<mongodb>-cluster.<host>.mongodb.net/<databasename>retryWrites=true&w=majority
 
 [i] - HTTPS with keys
 
