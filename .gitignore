@@ -17,5 +17,6 @@ npm-debug.*
 
 # Custom
 *.txt
-.env
+server/config.env
 server/config.js
+config/config.env
