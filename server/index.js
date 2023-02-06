@@ -5,7 +5,4 @@
  * ------------
  */
 
-const app = require('./server');
-
-
 // Connect to MongoDB with Mongoose : import db.connect.js
