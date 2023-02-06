@@ -1,7 +1,7 @@
 /*
  * config.js | MDolce, React Native Portfolio, marti.dolce@29signals.org
  * Function ---
- * This file is provides secret key and mongoURl.
+ * This file is provides secret key and mongoURl. Removing
  * ------------
  */
 

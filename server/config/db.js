@@ -28,7 +28,7 @@ const connectDB = async () => {
     console.log('MongoDB Connection failed',err);
     connectDB.json(err);
     process.exit(1);
-    connectDB.close()
+    await connectDB.close(true)
   }
 };
 

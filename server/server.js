@@ -31,7 +31,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 // APIs
-var moviesRouter = require("./api/movies.route");
+var moviesRouter = require("./api/movies/movies.route");
 
 //Initialize Express App
 var app = express();
